@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Netsafe</title>
+    <link rel="stylesheet" href="style.css">
+
+  </head>
+  <body>
+
+    <h2 style="font-family: 'Vazir', sans-serif;">وارد کردن کانفیگ</h2>
+    <textarea type="text" id="configInput" placeholder="Paste your Xray configuration here in JSON format"></textarea>
+    <button id="saveBtn">پیست و ذخیره</button>
+    <button class="homeLink">برگشت</button>
+    <script>
+      window.addEventListener('contextmenu', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+    // اجازه بده منوی پیش‌فرض مرورگر بیاد
+    return;
+  }
+
+  // بقیه صفحه می‌تونه منوی سفارشی داشته باشه
+  e.preventDefault();
+  // showCustomMenu();
+});
+        const { ipcRenderer } = require('electron')
+        const fs = require('fs');
+        const path = require('path');
+        const textarea = document.getElementById('configInput');
+        textarea.addEventListener('contextmenu', (e) => {
+        e.preventDefault(); // جلوگیری از منوی پیش‌فرض مرورگر
+        ipcRenderer.send('show-context-menu');
+  });
+  
+        
+        document.getElementById("saveBtn").addEventListener("click", async () => {
+            const userConfig = document.getElementById("configInput");
+            const text = await navigator.clipboard.readText();
+            userConfig.value = text;
+            ipcRenderer.send("save-config", text);
+        });
+        document.querySelector('.homeLink').addEventListener('click', (e) => {
+        ipcRenderer.send('navigate', 'index.html');
+        });
+
+     ipcRenderer.on("config-saved",(event,msg)=>{
+        alert(msg)
+     })
+     ipcRenderer.send("read-file-config")
+     ipcRenderer.on("data-config-send",(event,msg)=>{
+      textarea.value = msg
+     })
+
+    ipcRenderer.on('custom-action', (e, text) => {
+    alert('Custom action:', text);
+  });
+    </script>
+  </body>
+</html>

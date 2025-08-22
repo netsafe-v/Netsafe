@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Netsafe</title>
+    <link rel="stylesheet" href="style.css">
+
+  </head>
+  <body>
+   <div id="title-bar">
+    <div id="app-title">Netsafe VPN</div>
+    <div id="window-controls">
+      <button id="min-btn" aria-label="Minimize window">—</button>
+      <button id="close-btn" aria-label="Close window">×</button>
+    </div>
+  </div>
+    <h2>Netsafe VPN ❤️</h2>
+    <button id="startBtn">اتصال</button>
+    <button id="stopBtn" disabled>قطع اتصال</button>
+    <button class="addconfig">افزودن کانفیگ</button>
+    <button class="aboutLink">درباره برنامه</button>
+
+    <p style="text-align: center;" class="messages">Not running</p>
+
+    <script>
+      
+        const { ipcRenderer } = require('electron')
+        const start = document.querySelector("#startBtn")
+        const stop = document.querySelector("#stopBtn")
+        const messages = document.querySelector(".messages")
+        
+        window.onload = () => {
+            ipcRenderer.send('get-vpn-status');
+        };
+        ipcRenderer.on('vpn-status', (event, isConnected) => {
+        
+        if (isConnected) {
+            start.disabled = true
+            stop.disabled = false
+  } else {
+    stop.disabled = true
+    start.disabled = false
+  }
+});
+        start.addEventListener('click',()=>{
+          ipcRenderer.send('start-xray')
+          start.disabled = true
+          stop.disabled = false
+          messages.textContent = "VPN running"
+
+          new Notification('Netsafe', {
+    body: `VPN Started`,
+    icon: 'icon.ico'
+  });
+        })
+        stop.addEventListener('click',()=>{
+          ipcRenderer.send('stop-xray')
+          stop.disabled = true
+          start.disabled = false
+          messages.textContent = "VPN Stopped"
+
+        })
+        ipcRenderer.on('xray-status',(event,msg) =>{
+            messages.textContent = msg          
+        })
+        document.querySelector('.aboutLink').addEventListener('click', (e) => {
+        
+        ipcRenderer.send('navigate', 'about.html');
+        
+        });
+        document.querySelector('.addconfig').addEventListener('click', (e) => {
+        
+        ipcRenderer.send('navigate', 'config.html');
+        
+        });
+
+
+
+document.getElementById('min-btn').addEventListener('click', () => {
+  ipcRenderer.send('window-minimize');
+});
+
+document.querySelector('#close-btn').addEventListener('click', () => {
+  ipcRenderer.send('window-close');
+  
+});
+
+
+    </script>
+  </body>
+</html>

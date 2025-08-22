@@ -1,0 +1,142 @@
+@font-face {
+  font-family: 'Vazir';
+  src: url('./assets/fonts/Vazir.woff2') format('woff2'),
+       url('./assets/fonts/Vazir.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 32px; 
+    margin: 0;
+    user-select: none;
+}
+
+h2 {
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #288df2; /* رنگ سبز ملایم */
+}
+
+button {
+  background-color: #00b894;
+  font-family: 'Vazir', sans-serif;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  margin: 10px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 120px;
+  box-shadow: 0 4px 6px rgba(0, 184, 148, 0.4);
+  user-select: none;
+}
+
+button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  box-shadow: none;
+  color: #aaa;
+}
+
+button:hover:not(:disabled) {
+  background-color: #019875;
+}
+
+.messages {
+  margin-top: 30px;
+  font-size: 1.2rem;
+  min-height: 2em;
+  width: 300px;
+  text-align: center;
+  background-color: #222;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #00b894aa;
+  user-select: none;
+}
+/* کل title bar */
+#title-bar {
+  position: fixed; /* می‌چسبونه به بالای صفحه */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background-color: #202020;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  -webkit-app-region: drag; /* برای کشیدن پنجره */
+  user-select: none; /* جلوگیری از انتخاب متن */
+  z-index: 9999; /* روی همه چیز باشه */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.7); /* کمی سایه برای زیبایی */
+}
+
+/* عنوان برنامه */
+#app-title {
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* دکمه‌ها */
+#window-controls {
+  display: flex;
+  gap: 1px;
+  padding-right: 0;
+ margin-left: auto;
+ width: fit-content; 
+
+}
+
+/* استایل دکمه‌ها */
+#window-controls button {
+  -webkit-app-region: no-drag; /* دکمه‌ها قابل درگ نیستن */
+  background: transparent;
+  margin-left: auto;
+  border: none;
+  color: white;
+  font-size: 16px;
+
+  height: 32px;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  border-radius: 4px;
+}
+
+/* هاور دکمه‌ها */
+#window-controls button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* هاور دکمه بسته شدن پنجره قرمز بشه */
+
+
+#close-btn {
+  margin-right: -10px;
+
+}
+#configInput {
+  resize: none;   /* دیگه قابل تغییر اندازه نیست */
+  width: 80%;    /* پهنا کامل */
+  height: 300px;  /* ارتفاع ثابت */
+  font-family: monospace; /* برای JSON بهتره فونت monospace باشه */
+  white-space: pre; /* فاصله‌ها همونطور که هست بمونه */
+}

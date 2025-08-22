@@ -1,0 +1,44 @@
+{
+  "name": "Netsafe",
+  "version": "1.0.2",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GPL-3.0",
+  "description": "",
+  "devDependencies": {
+    "electron": "^37.2.6",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
+    "@electron/remote": "^2.1.3",
+    "electron-context-menu": "^4.1.1"
+  },
+  "build": {
+    "appId": "Netsafe",
+    "productName": "Netsafe VPN",
+    "extraResources": [
+      {
+        "from": "xray/",
+        "to": "xray",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "files": [
+      "**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    }
+  }
+}
