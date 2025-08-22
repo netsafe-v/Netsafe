@@ -24,11 +24,12 @@
     "extraResources": [
       {
         "from": "xray/",
-        "to": "xray",
-        "filter": [
-          "**/*"
-        ]
-      }
+        "to": "xray"
+      },
+      {
+      "from": "fonts/",
+      "to": "fonts"
+    }
     ],
     "files": [
       "**/*"
