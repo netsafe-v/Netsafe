@@ -19,17 +19,18 @@ body {
     padding-top: 32px; 
     margin: 0;
     user-select: none;
+
 }
 
 h2 {
   margin-bottom: 30px;
   font-weight: 700;
   font-size: 2rem;
-  color: #288df2; /* رنگ سبز ملایم */
+  color: #3187ff;
 }
 
 button {
-  background-color: #00b894;
+  background-color: #078e7a;
   font-family: 'Vazir', sans-serif;
   border: none;
   color: white;
@@ -40,8 +41,9 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease;
   min-width: 120px;
-  box-shadow: 0 4px 6px rgba(0, 184, 148, 0.4);
+  box-shadow: 0 4px 6px rgba(1, 197, 158, 0.4);
   user-select: none;
+  outline: none;
 }
 
 button:disabled {
@@ -52,7 +54,7 @@ button:disabled {
 }
 
 button:hover:not(:disabled) {
-  background-color: #019875;
+  background-color: #089680;
 }
 
 .messages {
@@ -136,7 +138,13 @@ button:hover:not(:disabled) {
 #configInput {
   resize: none;   /* دیگه قابل تغییر اندازه نیست */
   width: 80%;    /* پهنا کامل */
-  height: 300px;  /* ارتفاع ثابت */
+  height: 200px;  /* ارتفاع ثابت */
   font-family: monospace; /* برای JSON بهتره فونت monospace باشه */
   white-space: pre; /* فاصله‌ها همونطور که هست بمونه */
+  background-color: #202020;
+  border: #202020 solid #202020;
+  color: #eee;
+  outline: none;
+  caret-color: #ffcc00;
+  
 }

@@ -14,6 +14,7 @@ const xrayBinary = isDev ? path.join(__dirname, 'xray', process.platform === 'wi
 const configPath = isDev ? path.join(__dirname, 'xray', 'config.json') : path.join(process.resourcesPath, 'xray', 'config.json');
 
 
+
 function createWindow () {
    win = new BrowserWindow({
     width: 800,
@@ -98,7 +99,7 @@ ipcMain.on('window-close', (event) => {
 
 ipcMain.on("save-config", (event, userConfig) => {
   fs.writeFileSync(configPath, userConfig);
-   event.sender.send("config-saved", "✅ با موقعیت اضافه شد");
+  event.sender.send("config-saved", "✅ با موقعیت اضافه شد");
 });
 ipcMain.on('read-file-config',(event,msg) =>{
   const data = fs.readFileSync(configPath,"utf-8");
@@ -114,7 +115,6 @@ ipcMain.on('get-vpn-status', (event) => {
   }
 
 });
-
 
 
 app.setAppUserModelId(process.execPath);

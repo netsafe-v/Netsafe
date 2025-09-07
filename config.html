@@ -9,42 +9,48 @@
   <body>
 
     <h2 style="font-family: 'Vazir', sans-serif;">وارد کردن کانفیگ</h2>
-    <textarea type="text" id="configInput" placeholder="Paste your Xray configuration here in JSON format"></textarea>
-    <button id="saveBtn">پیست و ذخیره</button>
+    <textarea id="configInput" placeholder="Paste your Xray configuration here in JSON format"></textarea>
+    <button id="add-textarea" type="button">افزودن داده</button>
+    <button id="saveBtn" type="button">ذخیره</button>
+
+
+
     <button class="homeLink">برگشت</button>
     <script>
-      window.addEventListener('contextmenu', (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
-    // اجازه بده منوی پیش‌فرض مرورگر بیاد
-    return;
-  }
-
-  // بقیه صفحه می‌تونه منوی سفارشی داشته باشه
-  e.preventDefault();
-  // showCustomMenu();
-});
-        const { ipcRenderer } = require('electron')
+      function showMessage(msg) {
+  const toast = document.createElement('div');
+  toast.textContent = msg;
+  toast.style.position = 'fixed';
+  toast.style.bottom = '20px';
+  toast.style.right = '20px';
+  toast.style.background = '#333';
+  toast.style.color = '#fff';
+  toast.style.padding = '10px 20px';
+  toast.style.borderRadius = '5px';
+  toast.style.zIndex = 1000;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2000); // بعد 2 ثانیه حذف می‌شود
+}
+        const { ipcRenderer,clipboard } = require('electron')
         const fs = require('fs');
         const path = require('path');
-        const textarea = document.getElementById('configInput');
-        textarea.addEventListener('contextmenu', (e) => {
-        e.preventDefault(); // جلوگیری از منوی پیش‌فرض مرورگر
-        ipcRenderer.send('show-context-menu');
-  });
-  
+        const textarea = document.getElementById("configInput");
         
-        document.getElementById("saveBtn").addEventListener("click", async () => {
+        document.querySelector("#add-textarea").addEventListener('click',()=>{
             const userConfig = document.getElementById("configInput");
-            const text = await navigator.clipboard.readText();
-            userConfig.value = text;
-            ipcRenderer.send("save-config", text);
-        });
+            const text = clipboard.readText();
+            userConfig.value = text
+        })
+        document.getElementById("saveBtn").addEventListener("click", () => {
+            const userConfig = document.getElementById("configInput").value;
+            ipcRenderer.send("save-config", userConfig);
+       })
         document.querySelector('.homeLink').addEventListener('click', (e) => {
         ipcRenderer.send('navigate', 'index.html');
         });
 
      ipcRenderer.on("config-saved",(event,msg)=>{
-        alert(msg)
+        showMessage("✅ با موقعیت تغییر کرد");
      })
      ipcRenderer.send("read-file-config")
      ipcRenderer.on("data-config-send",(event,msg)=>{

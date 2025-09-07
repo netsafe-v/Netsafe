@@ -1,6 +1,6 @@
 {
   "name": "Netsafe",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -19,7 +19,7 @@
     "electron-context-menu": "^4.1.1"
   },
   "build": {
-    "appId": "Netsafe",
+    "appId": "Netsafe VPN",
     "productName": "Netsafe VPN",
     "extraResources": [
       {
